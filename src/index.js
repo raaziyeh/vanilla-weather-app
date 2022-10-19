@@ -7,7 +7,7 @@ const searchFormElement = document.querySelector(".search-box")
 const dateElement = document.querySelector("#date")
 const currentButton = document.querySelector(".current-btn")
 const cityElement = document.querySelector(".current-city")
-const tempElement = document.querySelector(".current-temperature")
+const tempElement = document.querySelector("#temp")
 const windElement = document.querySelector("#wind")
 const humidityElement = document.querySelector("#humidity")
 
@@ -116,7 +116,7 @@ function updateCurrentHandler() {
 
 function updateUI(cityData) {
 	cityElement.innerHTML = cityData.name
-	tempElement.innerHTML = cityData.temp + "<span>&#176C</span>"
+	tempElement.innerHTML = cityData.temp 
 	windElement.innerHTML = cityData.windSpeed
 	humidityElement.innerHTML = cityData.humidity
 }
