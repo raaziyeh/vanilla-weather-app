@@ -17,7 +17,7 @@ const celciusElement = document.querySelector("#celcius")
 
 // Events
 searchFormElement.addEventListener("submit", searchCityHandler)
-reloadButton.addEventListener("click", () => searchCity(cityElement.innerHTML))
+reloadButton.addEventListener("click", getLocalWeather)
 fahrenheitElement.addEventListener("click", displayFahrenheit)
 celciusElement.addEventListener("click", displayCelcius)
 
