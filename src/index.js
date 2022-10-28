@@ -73,6 +73,7 @@ function searchCityHandler(event) {
 	event.preventDefault()
 	let enteredCity = inputElement.value
 	searchCity(enteredCity)
+	inputElement.value = ""
 }
 
 function searchCity(city) {
