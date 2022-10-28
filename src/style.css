@@ -76,10 +76,27 @@
 }
 
 .current-temperature {
-	color: #2c2b2b;
-	font-size: 60px;
+	color: #2c2b2b;	
 	margin: auto;
 }
+
+.current-temperature #temp {
+	font-size: 60px;
+}
+
+.current-temperature .units {
+	position: relative;
+	top: -34px;		
+}
+
+.gray, .active {
+	color: #9f9f9f;
+}
+
+.active {
+	cursor: pointer;
+}
+
 
 .weather-details {
 	margin: auto;

@@ -12,10 +12,14 @@ const tempElement = document.querySelector("#temp")
 const windElement = document.querySelector("#wind")
 const humidityElement = document.querySelector("#humidity")
 const iconElement = document.querySelector("#icon")
+const fahrenheitElement = document.querySelector("#fahrenheit")
+const celciusElement = document.querySelector("#celcius")
 
 // Events
-searchFormElement.addEventListener("submit", searchCityHandler)
-currentButton.addEventListener("click", updateCurrentHandler)
+searchFormElement.addEventListener("submit", searchCity)
+currentButton.addEventListener("click", getLocalWeather)
+fahrenheitElement.addEventListener("click", displayFahrenheit)
+celciusElement.addEventListener("click", displayCelcius)
 
 // Codes which needs to be executed initially:
 dateElement.innerHTML = getLocalTime()
@@ -23,8 +27,11 @@ let lat, lon;
 navigator.geolocation.getCurrentPosition((position) => {
 		lat = position.coords.latitude
 		lon = position.coords.longitude
-		updateCurrentHandler() 
+		getLocalWeather() 
 })
+
+// global variables:
+let tempInCelcius;
 
 // Functions:
 function getLocalTime() {
@@ -59,26 +66,10 @@ function getLocalWeather() {
 		.get(
 			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1ee4264117b73d2263eecd562f31ef5c&units=metric`
 		)
-		.then((response) => {
-			let name = response.data.name
-			let temp = Math.round(response.data.main.temp)
-			let windSpeed = Math.round(response.data.wind.speed)
-			let humidity = response.data.main.humidity
-			let description = response.data.weather[0].description
-			let icon = response.data.weather[0].icon
-
-			updateUI({
-				name,
-				temp,
-				windSpeed,
-				humidity,
-				description,
-				icon
-			})
-		})
+		.then((response) => updateUI(analyzeResponse(response)))
 }
 
-function searchCityHandler(event) {
+function searchCity(event) {
 	event.preventDefault()
 	let enteredCity = inputElement.value
 
@@ -86,27 +77,25 @@ function searchCityHandler(event) {
 		.get(
 			`https://api.openweathermap.org/data/2.5/weather?q=${enteredCity}&appid=${openWeatherApiKey}&units=metric`
 		)
-		.then((response) => {			
-			let temp = Math.round(response.data.main.temp)
-			let windSpeed = Math.round(response.data.wind.speed)
-			let humidity = response.data.main.humidity
-			let description = response.data.weather[0].description
-			let icon = response.data.weather[0].icon
-			updateUI({
-				name: enteredCity,
-				temp,
-				windSpeed,
-				humidity,
-				description,
-				icon
-			})
-			dateElement.innerHTML = getLocalTime()
-		})
+		.then((response) => updateUI(analyzeResponse(response)))
 }
 
-function updateCurrentHandler() {
-	dateElement.innerHTML = getLocalTime()
-	getLocalWeather()
+function analyzeResponse(response) {
+	let name = response.data.name
+	tempInCelcius = Math.round(response.data.main.temp)
+	let windSpeed = Math.round(response.data.wind.speed)
+	let humidity = response.data.main.humidity
+	let description = response.data.weather[0].description
+	let icon = response.data.weather[0].icon
+
+	return {
+		name,
+		temp: tempInCelcius,
+		windSpeed,
+		humidity,
+		description,
+		icon,
+	}
 }
 
 function updateUI(cityData) {
@@ -119,11 +108,21 @@ function updateUI(cityData) {
 		"src",
 		`https://www.openweathermap.org/img/wn/${cityData.icon}@2x.png`
 	)
-
+	dateElement.innerHTML = getLocalTime()
 }
 
-// next step:
-// 5 day forecast 
+function displayFahrenheit() {
+	let tempInFahrenheit = Math.round(tempInCelcius * 1.8 + 32)
+	tempElement.innerHTML = tempInFahrenheit
+	celciusElement.classList.add('active');
+	fahrenheitElement.classList.remove('active');
+}
+
+function displayCelcius() {
+	tempElement.innerHTML = tempInCelcius
+	celciusElement.classList.remove("active")
+	fahrenheitElement.classList.add("active")
+}
 
 
 
