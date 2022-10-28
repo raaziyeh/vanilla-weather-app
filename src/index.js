@@ -5,6 +5,7 @@ const openWeatherApiKey = "a95c2c6739994ba4903e007ee817e7d1"
 const inputElement = document.querySelector("#city-input")
 const searchFormElement = document.querySelector(".search-box")
 const dateElement = document.querySelector("#date")
+const descriptionElement = document.querySelector("#description")
 const currentButton = document.querySelector(".current-btn")
 const cityElement = document.querySelector(".current-city")
 const tempElement = document.querySelector("#temp")
@@ -26,7 +27,7 @@ navigator.geolocation.getCurrentPosition((position) => {
 
 // Functions:
 function getLocalTime() {
-	// Calc hour and date like: "Sunday, 4:12 PM. Sep, 11, 2022"
+	// Calc hour and date like: "Sunday, 04:12 PM"
 	let currentTime = new Date()
 	const days = [
 		"Sunday",
@@ -38,32 +39,16 @@ function getLocalTime() {
 		"Saturday",
 	]
 
-	let months = [
-		"Jan",
-		"Feb",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"Aug",
-		"Sep",
-		"Oct",
-		"Nov",
-		"Dec",
-	]
-
 	let currentDay = days[currentTime.getDay()]
 	let currentMinutes = currentTime.getMinutes()
-	let currentHour = currentTime.getHours()
-	if (currentHour > 12) {
-		currentHour = `${currentHour - 12}:${currentMinutes} PM`
-	} else {
-		currentHour = `${currentHour}:${currentMinutes} AM`
+	if (currentMinutes < 10) {
+		currentMinutes = `0${currentMinutes}`
 	}
-	let currentMonth = months[currentTime.getMonth()]
-
-	let hourData = `${currentDay}, ${currentHour}. ${currentMonth}, ${currentTime.getDate()}, ${currentTime.getFullYear()}`
+	let currentHour = currentTime.getHours()
+	if (currentHour < 10) {
+		currentHour = `0${currentHour}`
+	}
+	let hourData = `${currentDay}, ${currentHour}:${currentMinutes}`
 
 	return hourData
 }
@@ -79,11 +64,14 @@ function getLocalWeather() {
 			let temp = Math.round(response.data.main.temp)
 			let windSpeed = Math.round(response.data.wind.speed)
 			let humidity = response.data.main.humidity
+			let description = response.data.weather[0].description
+			
 			updateUI({
 				name,
 				temp,
 				windSpeed,
-				humidity
+				humidity,
+				description
 			})
 		})
 }
@@ -100,11 +88,13 @@ function searchCityHandler(event) {
 			let temp = Math.round(response.data.main.temp)
 			let windSpeed = Math.round(response.data.wind.speed)
 			let humidity = response.data.main.humidity
+			let description = response.data.weather[0].description
 			updateUI({
 				name: enteredCity,
 				temp,
 				windSpeed,
 				humidity,
+				description,
 			})
 		})
 }
@@ -119,6 +109,10 @@ function updateUI(cityData) {
 	tempElement.innerHTML = cityData.temp 
 	windElement.innerHTML = cityData.windSpeed
 	humidityElement.innerHTML = cityData.humidity
+	console.log(cityData)
+	console.log(descriptionElement)
+	descriptionElement.innerHTML = cityData.description
+
 }
 
 // next steps:

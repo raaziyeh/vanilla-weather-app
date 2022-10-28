@@ -1,7 +1,8 @@
 .custom-container {
 	padding: 30px;
+	margin: auto;
+	margin-top: 2rem;	
 	max-width: 900px;
-	margin-top: 50px;
 }
 
 .current-city {
@@ -10,9 +11,13 @@
 	color: #2c2b2b;
 }
 
-.date {
+.date, #description {
 	padding-left: 7px;
 	color: #5c5b5b;
+}
+
+#description::first-letter {
+	text-transform: uppercase;
 }
 
 .search-box {
@@ -29,7 +34,7 @@
 .search-box input {
 	border: none;
 	border-radius: 30px;
-	padding: 6px 8px;
+	padding: 6px 15px;
 	color: #2c2b2b;
 }
 
@@ -39,7 +44,7 @@
 
 .search-box input::placeholder {
 	color: #9f9f9f;
-	font-size: 0.9rem;
+	font-size: 0.9rem;	
 }
 
 .search-box button, .current-btn {
@@ -54,7 +59,7 @@
     display: block;
     margin-top: 1.3rem;
     border-radius: 20px;
-    padding: 7px 20px;
+    padding: 6px 20px;
 }
 
 .current-btn:hover {
@@ -96,6 +101,6 @@ a {
 }
 
 .main-frame {
-	box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
-	padding: 2rem;
+		box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
+		padding: 2rem;
 }
