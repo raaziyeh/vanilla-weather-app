@@ -6,7 +6,7 @@ const inputElement = document.querySelector("#city-input")
 const searchFormElement = document.querySelector(".search-box")
 const dateElement = document.querySelector("#date")
 const descriptionElement = document.querySelector("#description")
-const currentButton = document.querySelector(".current-btn")
+const reloadButton = document.querySelector("#reload")
 const cityElement = document.querySelector(".current-city")
 const tempElement = document.querySelector("#temp")
 const windElement = document.querySelector("#wind")
@@ -16,8 +16,8 @@ const fahrenheitElement = document.querySelector("#fahrenheit")
 const celciusElement = document.querySelector("#celcius")
 
 // Events
-searchFormElement.addEventListener("submit", searchCity)
-currentButton.addEventListener("click", getLocalWeather)
+searchFormElement.addEventListener("submit", searchCityHandler)
+reloadButton.addEventListener("click", () => searchCity(cityElement.innerHTML))
 fahrenheitElement.addEventListener("click", displayFahrenheit)
 celciusElement.addEventListener("click", displayCelcius)
 
@@ -69,13 +69,16 @@ function getLocalWeather() {
 		.then((response) => updateUI(analyzeResponse(response)))
 }
 
-function searchCity(event) {
+function searchCityHandler(event) {
 	event.preventDefault()
 	let enteredCity = inputElement.value
+	searchCity(enteredCity)
+}
 
+function searchCity(city) {
 	axios
 		.get(
-			`https://api.openweathermap.org/data/2.5/weather?q=${enteredCity}&appid=${openWeatherApiKey}&units=metric`
+			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${openWeatherApiKey}&units=metric`
 		)
 		.then((response) => updateUI(analyzeResponse(response)))
 }
