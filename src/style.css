@@ -22,10 +22,13 @@
 	border-radius: 30px;
 	margin-top: 18px;
 	max-width: 300px;
+	margin: auto;
+	margin-top: 1.3rem;
 }
 
 .search-box input {
 	border: none;
+	border-radius: 30px;
 	padding: 6px 8px;
 	color: #2c2b2b;
 }
@@ -36,6 +39,7 @@
 
 .search-box input::placeholder {
 	color: #9f9f9f;
+	font-size: 0.9rem;
 }
 
 .search-box button, .current-btn {
@@ -48,7 +52,7 @@
 
 .current-btn {
     display: block;
-    margin: 21px 0px;
+    margin-top: 1.3rem;
     border-radius: 20px;
     padding: 7px 20px;
 }
@@ -78,6 +82,7 @@
 	width: 90px;
 	height: 90px;
 	padding: 8px;
+	margin: auto;
 	border-radius: 100%;
 	border: 1px solid #efefef;
 	text-align: center;
@@ -88,4 +93,9 @@
 
 a {
 	text-decoration: none;
+}
+
+.main-frame {
+	box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
+	padding: 2rem;
 }
