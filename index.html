@@ -18,10 +18,10 @@
 	<body>
 		<div class="container custom-container">
 			<div class="main-frame">
-			<div class="row mb-5">
+			<div class="row mb-3">
 				<div class="col-5">
 					<h1 class="current-city"></h1>
-					<div class="date" id="date"></div>
+					<div class="date">last updatad: <span  id="date"></span></div>
 					<div id="description"></div>
 				</div>
 				<div class="col-5">
@@ -38,9 +38,9 @@
                     </button>
 				</div>
 			</div>
-			<div class="row mb-5">
+			<div class="row mb-3">
 				<div class="col-3 current-weather-emoji">
-                   <img src="src/icons/sunny.svg" alt="sunny">
+                   <img id="icon" src="" alt="sunny" />
                 </div>
 				<div class="col-5 current-temperature">
 					<span id="temp"></span>
@@ -111,7 +111,7 @@
 				</div>
 			</div>
 			</div>
-			<div class="row mt-5">
+			<div class="row mt-4">
 				<small>
 					<a 
 						href="https://github.com/raaziyeh/vanilla-weather-app" 

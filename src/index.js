@@ -11,6 +11,7 @@ const cityElement = document.querySelector(".current-city")
 const tempElement = document.querySelector("#temp")
 const windElement = document.querySelector("#wind")
 const humidityElement = document.querySelector("#humidity")
+const iconElement = document.querySelector("#icon")
 
 // Events
 searchFormElement.addEventListener("submit", searchCityHandler)
@@ -59,19 +60,20 @@ function getLocalWeather() {
 			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1ee4264117b73d2263eecd562f31ef5c&units=metric`
 		)
 		.then((response) => {
-			console.log(response)
 			let name = response.data.name
 			let temp = Math.round(response.data.main.temp)
 			let windSpeed = Math.round(response.data.wind.speed)
 			let humidity = response.data.main.humidity
 			let description = response.data.weather[0].description
-			
+			let icon = response.data.weather[0].icon
+
 			updateUI({
 				name,
 				temp,
 				windSpeed,
 				humidity,
-				description
+				description,
+				icon
 			})
 		})
 }
@@ -89,13 +91,16 @@ function searchCityHandler(event) {
 			let windSpeed = Math.round(response.data.wind.speed)
 			let humidity = response.data.main.humidity
 			let description = response.data.weather[0].description
+			let icon = response.data.weather[0].icon
 			updateUI({
 				name: enteredCity,
 				temp,
 				windSpeed,
 				humidity,
 				description,
+				icon
 			})
+			dateElement.innerHTML = getLocalTime()
 		})
 }
 
@@ -109,14 +114,16 @@ function updateUI(cityData) {
 	tempElement.innerHTML = cityData.temp 
 	windElement.innerHTML = cityData.windSpeed
 	humidityElement.innerHTML = cityData.humidity
-	console.log(cityData)
-	console.log(descriptionElement)
 	descriptionElement.innerHTML = cityData.description
+	iconElement.setAttribute(
+		"src",
+		`https://www.openweathermap.org/img/wn/${cityData.icon}@2x.png`
+	)
 
 }
 
-// next steps:
-// the picture should be changed depending on what weather like
+// next step:
 // 5 day forecast 
+
 
 

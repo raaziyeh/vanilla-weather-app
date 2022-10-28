@@ -1,7 +1,7 @@
 .custom-container {
 	padding: 30px;
 	margin: auto;
-	margin-top: 2rem;	
+	margin-top: 2rem;
 	max-width: 900px;
 }
 
@@ -11,12 +11,14 @@
 	color: #2c2b2b;
 }
 
-.date, #description {
+.date,
+#description {
 	padding-left: 7px;
 	color: #5c5b5b;
 }
 
-#description::first-letter {
+#description::first-letter,
+.date::first-letter {
 	text-transform: uppercase;
 }
 
@@ -44,10 +46,11 @@
 
 .search-box input::placeholder {
 	color: #9f9f9f;
-	font-size: 0.9rem;	
+	font-size: 0.9rem;
 }
 
-.search-box button, .current-btn {
+.search-box button,
+.current-btn {
 	background-color: #9f9f9f;
 	border: 1px solid #9f9f9f;
 	color: white;
@@ -56,14 +59,14 @@
 }
 
 .current-btn {
-    display: block;
-    margin-top: 1.3rem;
-    border-radius: 20px;
-    padding: 6px 20px;
+	display: block;
+	margin-top: 1.3rem;
+	border-radius: 20px;
+	padding: 6px 20px;
 }
 
 .current-btn:hover {
-    background-color: #5c5b5b;
+	background-color: #5c5b5b;
 }
 
 .current-weather-emoji img {
@@ -101,6 +104,6 @@ a {
 }
 
 .main-frame {
-		box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
-		padding: 2rem;
+	box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
+	padding: 2rem;
 }
