@@ -131,3 +131,9 @@ a {
 	box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
 	padding: 2rem;
 }
+
+.code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
