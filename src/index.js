@@ -152,10 +152,18 @@ function updateForecastUI(daysArray) {
 			<div class="col-2">
 				<div class="forecast">
 						<div class="forecast-day">${day.weekDay}</div>
-						<div><img class="forecast-img" src="https://www.openweathermap.org/img/wn/${day.icon}@2x.png"/></div>
+						<div><img class="forecast-img" src="https://www.openweathermap.org/img/wn/${
+							day.icon
+						}@2x.png"/></div>
 						<div class="forecast-temp">
-							<span class="max">${day.max}°</span>
-							<span class="min">${day.min}°</span>
+							<span class="forecast-celsius">
+								<span class="max">${day.max}°</span>
+								<span class="min">${day.min}°</span>
+							</span>
+							<span class="forecast-fahrenheit hide">
+								<span class="max">${Math.round(day.max * 1.8 + 32)}°</span>
+								<span class="min">${Math.round(day.min * 1.8 + 32)}°</span>
+							</span>
 						</div>
 				</div>
 			</div>`
@@ -166,14 +174,35 @@ function updateForecastUI(daysArray) {
 }
 
 function displayFahrenheit() {
-	let tempInFahrenheit = Math.round(tempInCelcius * 1.8 + 32)
+	let tempInFahrenheit = Math.round(tempInCelsius * 1.8 + 32)
 	tempElement.innerHTML = tempInFahrenheit
-	celciusElement.classList.add("active")
+	celsiusElement.classList.add("active")
 	fahrenheitElement.classList.remove("active")
+	const forecastCelsiusElements =
+		document.querySelectorAll(".forecast-celsius")
+	const forecastFahrenheitElements = document.querySelectorAll(
+		".forecast-fahrenheit"
+	)
+	forecastFahrenheitElements.forEach((element) => {
+		element.classList.remove("hide")
+	})
+	forecastCelsiusElements.forEach((element) => {
+		element.classList.add("hide")
+	})
 }
 
 function displayCelsius() {
-	tempElement.innerHTML = tempInCelcius
-	celciusElement.classList.remove("active")
+	tempElement.innerHTML = tempInCelsius
+	celsiusElement.classList.remove("active")
 	fahrenheitElement.classList.add("active")
+	const forecastCelsiusElements = document.querySelectorAll(".forecast-celsius")
+	const forecastFahrenheitElements = document.querySelectorAll(
+		".forecast-fahrenheit"
+	)
+	forecastFahrenheitElements.forEach(element => {
+		element.classList.add("hide")
+	})
+	forecastCelsiusElements.forEach((element) => {
+		element.classList.remove("hide")
+	})
 }

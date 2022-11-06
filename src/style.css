@@ -1,3 +1,7 @@
+a {
+	text-decoration: none;
+}
+
 .custom-container {
 	padding: 30px;
 	margin: auto;
@@ -142,8 +146,8 @@
 	color: gray;
 }
 
-a {
-	text-decoration: none;
+.hide {
+	display: none;
 }
 
 .main-frame {
