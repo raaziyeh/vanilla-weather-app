@@ -2,7 +2,7 @@
 	padding: 30px;
 	margin: auto;
 	margin-top: 2rem;
-	max-width: 900px;
+	max-width: 800px;
 }
 
 .current-city {
@@ -33,7 +33,7 @@
 	border: 1px solid #efefef;
 	height: 40px;
 	text-align: left;
-	border-radius: 30px;
+	border-radius: 10px;
 	margin-top: 18px;
 	max-width: 300px;
 	margin: auto;
@@ -42,8 +42,8 @@
 
 .search-box input {
 	border: none;
-	border-radius: 30px;
-	padding: 6px 15px;
+	border-radius: 10px;
+	padding: 6px 10px;
 	color: #2c2b2b;
 }
 
@@ -61,8 +61,8 @@
 	background-color: #9f9f9f;
 	border: 1px solid #9f9f9f;
 	color: white;
-	border-top-right-radius: 30px;
-	border-bottom-right-radius: 30px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 
 .current-btn {
@@ -110,17 +110,36 @@
 	color: #5c5b5b;
 }
 
-.day-wrapper {
-	width: 90px;
-	height: 90px;
-	padding: 8px;
-	margin: auto;
-	border-radius: 100%;
-	border: 1px solid #efefef;
-	text-align: center;
-	color: #5c5b5b;
-	font-size: 14px;
-	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+.forecast {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	padding: 5px;	
+	box-shadow:  rgba(9, 9, 9, 0.04) 0px 0px 9px;
+	color: #2c2b2b;
+}
+
+.forecast:hover {
+	background-color: #eee8e821;
+}
+
+.forecast-day {
+	font-size: 16px;
+}
+
+.forecast-img {
+	width: 48px;
+	height: 48px;
+}
+
+.forecast-temp {
+	font-size: 13px;
+}
+
+.forecast-temp .min{
+	color: gray;
 }
 
 a {

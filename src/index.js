@@ -13,25 +13,28 @@ const windElement = document.querySelector("#wind")
 const humidityElement = document.querySelector("#humidity")
 const iconElement = document.querySelector("#icon")
 const fahrenheitElement = document.querySelector("#fahrenheit")
-const celciusElement = document.querySelector("#celcius")
+const celsiusElement = document.querySelector("#celsius")
+const forecastWrapper = document.querySelector("#forecast-wrapper")
 
 // Events
 searchFormElement.addEventListener("submit", searchCityHandler)
 reloadButton.addEventListener("click", getLocalWeather)
 fahrenheitElement.addEventListener("click", displayFahrenheit)
-celciusElement.addEventListener("click", displayCelcius)
+celsiusElement.addEventListener("click", displayCelsius)
 
 // Codes which needs to be executed initially:
 dateElement.innerHTML = getLocalTime()
-let lat, lon;
 navigator.geolocation.getCurrentPosition((position) => {
-		lat = position.coords.latitude
-		lon = position.coords.longitude
-		getLocalWeather() 
+	let lat = position.coords.latitude
+	let lon = position.coords.longitude
+	getLocalWeather({
+		lat,
+		lon
+	})
 })
 
 // global variables:
-let tempInCelcius;
+let tempInCelsius
 
 // Functions:
 function getLocalTime() {
@@ -61,12 +64,15 @@ function getLocalTime() {
 	return hourData
 }
 
-function getLocalWeather() {	
+function getLocalWeather(coords) {
 	axios
 		.get(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1ee4264117b73d2263eecd562f31ef5c&units=metric`
+			`https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=1ee4264117b73d2263eecd562f31ef5c&units=metric`
 		)
-		.then((response) => updateUI(analyzeResponse(response)))
+		.then((response) => {
+			updateUI(analyzeResponse(response))
+			getForecastData(coords)
+		})
 }
 
 function searchCityHandler(event) {
@@ -81,12 +87,23 @@ function searchCity(city) {
 		.get(
 			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${openWeatherApiKey}&units=metric`
 		)
-		.then((response) => updateUI(analyzeResponse(response)))
+		.then((response) => {
+			updateUI(analyzeResponse(response))
+			getForecastData(response.data.coord)
+
+		})
+}
+
+function getForecastData(coords) {
+	let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=hourly,minutely&appid=${openWeatherApiKey}&units=metric`
+	axios
+		.get(apiURL)
+		.then((response) => updateForecastUI(analyzeForecastData(response)))
 }
 
 function analyzeResponse(response) {
 	let name = response.data.name
-	tempInCelcius = Math.round(response.data.main.temp)
+	tempInCelsius = Math.round(response.data.main.temp)
 	let windSpeed = Math.round(response.data.wind.speed)
 	let humidity = response.data.main.humidity
 	let description = response.data.weather[0].description
@@ -94,7 +111,7 @@ function analyzeResponse(response) {
 
 	return {
 		name,
-		temp: tempInCelcius,
+		temp: tempInCelsius,
 		windSpeed,
 		humidity,
 		description,
@@ -102,9 +119,21 @@ function analyzeResponse(response) {
 	}
 }
 
+function analyzeForecastData(responseData) {
+	const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+	return responseData.data.daily.map((day) => {
+		return {
+			weekDay: days[new Date(day.dt * 1000).getDay()],
+			min: Math.round(day.temp.min),
+			max: Math.round(day.temp.max),
+			icon: day.weather[0].icon,
+		}
+	})
+}
+
 function updateUI(cityData) {
 	cityElement.innerHTML = cityData.name
-	tempElement.innerHTML = cityData.temp 
+	tempElement.innerHTML = cityData.temp
 	windElement.innerHTML = cityData.windSpeed
 	humidityElement.innerHTML = cityData.humidity
 	descriptionElement.innerHTML = cityData.description
@@ -115,18 +144,36 @@ function updateUI(cityData) {
 	dateElement.innerHTML = getLocalTime()
 }
 
+function updateForecastUI(daysArray) {
+	let forecastHTML = '<div class="row">'
+	daysArray.forEach((day, index) => {
+		if (index < 6) {
+			forecastHTML += `
+			<div class="col-2">
+				<div class="forecast">
+						<div class="forecast-day">${day.weekDay}</div>
+						<div><img class="forecast-img" src="https://www.openweathermap.org/img/wn/${day.icon}@2x.png"/></div>
+						<div class="forecast-temp">
+							<span class="max">${day.max}°</span>
+							<span class="min">${day.min}°</span>
+						</div>
+				</div>
+			</div>`
+		}
+	})
+	forecastHTML += "</div>"
+	forecastWrapper.innerHTML = forecastHTML
+}
+
 function displayFahrenheit() {
 	let tempInFahrenheit = Math.round(tempInCelcius * 1.8 + 32)
 	tempElement.innerHTML = tempInFahrenheit
-	celciusElement.classList.add('active');
-	fahrenheitElement.classList.remove('active');
+	celciusElement.classList.add("active")
+	fahrenheitElement.classList.remove("active")
 }
 
-function displayCelcius() {
+function displayCelsius() {
 	tempElement.innerHTML = tempInCelcius
 	celciusElement.classList.remove("active")
 	fahrenheitElement.classList.add("active")
 }
-
-
-
