@@ -3,9 +3,7 @@ a {
 }
 
 .custom-container {
-	padding: 30px;
 	margin: auto;
-	margin-top: 2rem;
 	max-width: 800px;
 }
 
@@ -29,7 +27,7 @@ a {
 #reload {
 	font-size: 0.8rem;
 	position: relative;
-	top:-3px;
+	top: -3px;
 	cursor: pointer;
 }
 
@@ -87,7 +85,7 @@ a {
 }
 
 .current-temperature {
-	color: #2c2b2b;	
+	color: #2c2b2b;
 	margin: auto;
 }
 
@@ -97,17 +95,17 @@ a {
 
 .current-temperature .units {
 	position: relative;
-	top: -34px;		
+	top: -34px;
 }
 
-.gray, .active {
+.gray,
+.active {
 	color: #9f9f9f;
 }
 
 .active {
 	cursor: pointer;
 }
-
 
 .weather-details {
 	margin: auto;
@@ -120,8 +118,8 @@ a {
 	align-items: center;
 	justify-content: center;
 	border-radius: 10px;
-	padding: 5px;	
-	box-shadow:  rgba(9, 9, 9, 0.04) 0px 0px 9px;
+	padding: 5px;
+	box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
 	color: #2c2b2b;
 }
 
@@ -142,7 +140,7 @@ a {
 	font-size: 13px;
 }
 
-.forecast-temp .min{
+.forecast-temp .min {
 	color: gray;
 }
 
@@ -152,11 +150,10 @@ a {
 
 .main-frame {
 	box-shadow: rgba(9, 9, 9, 0.04) 0px 0px 9px;
-	padding: 2rem;
+	/* padding: 2rem; */
 }
 
 .code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
-

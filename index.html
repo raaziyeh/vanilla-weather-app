@@ -16,15 +16,15 @@
 		<title>weather app</title>
 	</head>
 	<body>
-		<div class="container custom-container">
-			<div class="main-frame">
-				<div class="row mb-3">
-					<div class="col-6">
+		<div class="container custom-container mt-2 mt-sm-5">
+			<div class="main-frame p-3 p-md-5">
+				<div class="row mb-2 mb-sm-3">
+					<div class="col-sm-6 order-2 order-sm-1">
 						<h1 class="current-city"></h1>
 						<div class="date">last updated: <span  id="date"></span><span id=reload>  &#x21bb;</span></div>
 						<div id="description"></div>
 					</div>
-					<div class="col-6">
+					<div class="col-sm-6 order-1 order-sm-2 mb-3">
 						<form class="search-box">
 							<div class="input-group mb-3">
 								<input type="text" id="city-input" class="form-control" placeholder="Enter City ... " aria-label="Enter City ... " aria-describedby="button-addon2">
@@ -34,17 +34,17 @@
 					</div>
 				</div>
 				<div class="row mb-3">
-					<div class="col-3 current-weather-emoji">
+					<div class="col-5 col-sm-3 current-weather-emoji">
 						<img id="icon" src="" alt="sunny" />
 					</div>
-					<div class="col-5 current-temperature">
+					<div class="col-7 col-sm-5 current-temperature">
 						<span id="temp"></span>
 						<span class="units">
 							<span id="celsius">&#176C</span> <span class="gray">|</span>
 							<span id="fahrenheit" class="active">&#8457</span>
 						</span>											
 					</div>
-					<div class="col-4 weather-details">
+					<div class="col-4 weather-details d-none d-sm-block">
 						<div class="row">
 							<div class="col-12">Humidity: <span id="humidity"></span>%</div>
 							<div class="col-12">Wind: <span id="wind"></span>km/h</div>
@@ -53,17 +53,6 @@
 				</div>	
 				<div id="forecast-wrapper"></div>						
 			</div>					
-			<div class="row mt-4">
-				<small class="code">
-					<a 
-						href="https://github.com/raaziyeh/vanilla-weather-app" 
-						target="_blank"
-					>
-						Open-source code
-					</a>
-					, by Raziyeh S. Moghaddam
-				</small>
-			</div>
 		</div>
 		<script src="./src/index.js"></script>
 	</body>
