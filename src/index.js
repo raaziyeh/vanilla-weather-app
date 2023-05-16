@@ -18,23 +18,30 @@ const forecastWrapper = document.querySelector("#forecast-wrapper")
 
 // Events
 searchFormElement.addEventListener("submit", searchCityHandler)
-reloadButton.addEventListener("click", getLocalWeather)
+reloadButton.addEventListener("click", () =>
+	getLocalWeather({
+		lat: localLat,
+		lon: localLon,
+	})
+)
 fahrenheitElement.addEventListener("click", displayFahrenheit)
 celsiusElement.addEventListener("click", displayCelsius)
+
+// global variables:
+let tempInCelsius
+let localLat
+let localLon
 
 // Codes which needs to be executed initially:
 dateElement.innerHTML = getLocalTime()
 navigator.geolocation.getCurrentPosition((position) => {
-	let lat = position.coords.latitude
-	let lon = position.coords.longitude
+	localLat = position.coords.latitude
+	localLon = position.coords.longitude
 	getLocalWeather({
-		lat,
-		lon
+		lat: localLat,
+		lon: localLon,
 	})
 })
-
-// global variables:
-let tempInCelsius
 
 // Functions:
 function getLocalTime() {
@@ -90,7 +97,6 @@ function searchCity(city) {
 		.then((response) => {
 			updateUI(analyzeResponse(response))
 			getForecastData(response.data.coord)
-
 		})
 }
 
@@ -178,8 +184,7 @@ function displayFahrenheit() {
 	tempElement.innerHTML = tempInFahrenheit
 	celsiusElement.classList.add("active")
 	fahrenheitElement.classList.remove("active")
-	const forecastCelsiusElements =
-		document.querySelectorAll(".forecast-celsius")
+	const forecastCelsiusElements = document.querySelectorAll(".forecast-celsius")
 	const forecastFahrenheitElements = document.querySelectorAll(
 		".forecast-fahrenheit"
 	)
@@ -199,7 +204,7 @@ function displayCelsius() {
 	const forecastFahrenheitElements = document.querySelectorAll(
 		".forecast-fahrenheit"
 	)
-	forecastFahrenheitElements.forEach(element => {
+	forecastFahrenheitElements.forEach((element) => {
 		element.classList.add("hide")
 	})
 	forecastCelsiusElements.forEach((element) => {
