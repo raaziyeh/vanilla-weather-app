@@ -9,7 +9,7 @@
 </ul>
 
 <h2> Live Version </h2>
-<p> This game is live on <a href="https://zippy-kitten-fd98bf.netlify.app" target="_blank"> here </a> <p>
+<p> This app is live on <a href="https://zippy-kitten-fd98bf.netlify.app" target="_blank"> here </a> <p>
 
 <h2> App Screenshot </h2>
 <div>
