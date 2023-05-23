@@ -72,10 +72,10 @@ function getLocalTime() {
 }
 
 function getLocalWeather(coords) {
-	axios
-		.get(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=1ee4264117b73d2263eecd562f31ef5c&units=metric`
-		)
+	fetch(
+		`https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=1ee4264117b73d2263eecd562f31ef5c&units=metric`
+	)
+		.then((response) => response.json())
 		.then((response) => {
 			updateUI(analyzeResponse(response))
 			getForecastData(coords)
@@ -90,10 +90,10 @@ function searchCityHandler(event) {
 }
 
 function searchCity(city) {
-	axios
-		.get(
-			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${openWeatherApiKey}&units=metric`
-		)
+	fetch(
+		`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${openWeatherApiKey}&units=metric`
+	)
+		.then((response) => response.json())
 		.then((response) => {
 			updateUI(analyzeResponse(response))
 			getForecastData(response.data.coord)
@@ -102,18 +102,18 @@ function searchCity(city) {
 
 function getForecastData(coords) {
 	let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=hourly,minutely&appid=${openWeatherApiKey}&units=metric`
-	axios
-		.get(apiURL)
+	fetch(apiURL)
+		.then((response) => response.json())
 		.then((response) => updateForecastUI(analyzeForecastData(response)))
 }
 
 function analyzeResponse(response) {
-	let name = response.data.name
-	tempInCelsius = Math.round(response.data.main.temp)
-	let windSpeed = Math.round(response.data.wind.speed)
-	let humidity = response.data.main.humidity
-	let description = response.data.weather[0].description
-	let icon = response.data.weather[0].icon
+	let name = response.name
+	tempInCelsius = Math.round(response.main.temp)
+	let windSpeed = Math.round(response.wind.speed)
+	let humidity = response.main.humidity
+	let description = response.weather[0].description
+	let icon = response.weather[0].icon
 
 	return {
 		name,
@@ -127,7 +127,7 @@ function analyzeResponse(response) {
 
 function analyzeForecastData(responseData) {
 	const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-	return responseData.data.daily.map((day) => {
+	return responseData.daily.map((day) => {
 		return {
 			weekDay: days[new Date(day.dt * 1000).getDay()],
 			min: Math.round(day.temp.min),
